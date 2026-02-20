@@ -8,6 +8,8 @@ This repository follows the strict directory structure required by Config Sync's
 
 ```text
 config-sync/
+├── cluster/                # Contains cluster-scoped objects
+│   └── gatekeeper-validating-webhook-configuration.yaml
 ├── namespaces/             # Contains namespaces and namespace-scoped objects
 │   └── test-configsync.yaml
 └── system/                 # System configurations for Config Sync
@@ -19,6 +21,7 @@ config-sync/
 Config Sync relies on these exact paths to determine how to apply configurations:
 
 - **`config-sync/`**: The root directory that Config Sync is configured to read from.
+- **`cluster/`**: Contains objects that are scoped to the entire cluster, such as `ValidatingWebhookConfiguration`, `ClusterRole`, and `ClusterRoleBinding`.
 - **`namespaces/`**: Any resource placed here is treated as a namespace or a namespace-scoped object. Config Sync handles **inheritance** here; configs placed in parent directories are automatically applied to child namespaces.
 - **`system/repo.yaml`**: This file is **mandatory** for the hierarchical format. It contains versioning information and explicitly tells Config Sync that this repository uses the hierarchical structure (as opposed to unstructured). Without this file, the hierarchical features (like abstract namespaces and automatic inheritance) would not work.
 
